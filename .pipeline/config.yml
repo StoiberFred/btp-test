@@ -1,0 +1,31 @@
+---
+general:
+  buildTool: "mta"
+service:
+  buildToolVersion: "MBTJ11N16"
+stages:
+  Build:
+    source: helloworldui5
+    npmExecuteLint: false
+  Additional Unit Tests:
+    npmExecuteScripts: false
+  Malware Scan:
+    malwareExecuteScan: false
+  Acceptance:
+    cloudFoundryDeploy: false
+    npmExecuteEndToEndTests: false
+  Compliance:
+    sonarExecuteScan: false
+  Release:
+    cloudFoundryDeploy: true
+    cfApiEndpoint: "https://api.cf.eu10-004.hana.ondemand.com/"
+    cfOrg: "cronos_Unternehmensberatung GmbH_whfzy5406t5y2c-w"
+    cfSpace: "dev"
+    cfCredentialsId: "deployonbtp"
+    deployType: "standard"
+    tmsUpload: false
+steps:
+  artifactPrepareVersion:
+    versioningType: "cloud_noTag"
+  cloudFoundryDeploy:
+    mtaDeployParameters: "-f --version-rule ALL"
